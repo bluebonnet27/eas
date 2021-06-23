@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎使用新版教务系统</title>
+    <!--Materialize 使用-->
+<!--    <link rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>-->
+    <style>
+        body{
+            background-image: url('https://ftp.bmp.ovh/imgs/2021/06/07c42db3ee054c4a.jpg') ;
+        }
+        #navlogo{
+            margin-left: 20px;
+        }
+        #indexform{
+            margin-top: 50px;
+        }
+        #footerme{
+            margin-top: 400px;
+        }
+    </style>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar-fixed">
+    <nav class="blue darken-1">
+        <div class="nav-wrapper container">
+            <a id="navlogo" href="#!" class="brand-logo">教务管理系统</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#!">Sass</a></li>
+                <li><a href="#!">组件</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col s3">
+            <!-- Promo Content 1 goes here -->
+        </div>
+        <div class="col s6" id="indexform">
+            <form class="col s12">
+                <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="uname" name="uname" type="text" class="validate" v-model="uname">
+                            <label class="active" for="uname">Name{{uname}}</label>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">mode_edit</i>
+                            <input id="upwd" name="upwd" type="password" class="validate" v-model="upwd">
+                            <label class="active" for="upwd">密码{{upwd}}</label>
+                        </div>
+                </div>
+            </form>
+            <div class="row">
+                <button class="btn waves-effect waves-light col s12" type="button" @click="submitForm()">
+                    <i class="material-icons">perm_identity</i>
+                    登录
+                </button>
+            </div>
+        </div>
+        <div class="col s3">
+            <!-- Promo Content 3 goes here -->
+        </div>
+    </div>
+</div>
+<footer class="page-footer orange" id="footerme">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="white-text">我们的团队</h5>
+                <p class="grey-text text-lighten-4">我们是一个在这个项目上工作的大学生团队，就像是我们的全职工作。任何金额将有助于支持和继续在这个项目上的发展，并不胜感激。</p>
+
+
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">设置</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">链接 1</a></li>
+                    <li><a class="white-text" href="#!">链接 2</a></li>
+                    <li><a class="white-text" href="#!">链接 3</a></li>
+                    <li><a class="white-text" href="#!">链接 4</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">链接</h5>
+                <ul>
+                    <li><a class="white-text" href="#!">链接 1</a></li>
+                    <li><a class="white-text" href="#!">链接 2</a></li>
+                    <li><a class="white-text" href="#!">链接 3</a></li>
+                    <li><a class="white-text" href="#!">链接 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <div class="container">
+            Made by <a class="orange-text text-lighten-3" href="http://www.materializecss.cn">Materialize</a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#indexform",
+        data:{
+            uname:"admin",
+            upwd:"123",
+            errMsg:""
+        },
+        methods:{
+            submitForm:function (){
+                //封装表单参数
+                const formDate=new FormData();
+                formDate.append("username",this.uname);
+                formDate.append("pwd",this.upwd);
+
+                axios
+                    .post('http://localhost:8080/auserlogin/login',formDate)
+                    .then(response =>{
+                        if(response.data.result){
+                            alert("添加成功！");
+                        }else{
+                            alert(response.data.errMsg);
+                        }
+                    })
+                    .catch(function (error) { // 请求失败处理
+                        console.log(error);
+                    });
+            },
+            newsubmit:function (){
+
+            }
+        }
+    })
+</script>

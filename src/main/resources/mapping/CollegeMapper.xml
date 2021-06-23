@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.eas.dao.CollegeMapper" >
+  <resultMap id="BaseResultMap" type="com.example.eas.entity.College" >
+    <id column="collegeID" property="collegeid" jdbcType="INTEGER" />
+    <result column="collegeName" property="collegename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    collegeID, collegeName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from college
+    where collegeID = #{collegeid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from college
+    where collegeID = #{collegeid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.example.eas.entity.College" >
+    insert into college (collegeID, collegeName)
+    values (#{collegeid,jdbcType=INTEGER}, #{collegename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.eas.entity.College" >
+    insert into college
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="collegeid != null" >
+        collegeID,
+      </if>
+      <if test="collegename != null" >
+        collegeName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="collegeid != null" >
+        #{collegeid,jdbcType=INTEGER},
+      </if>
+      <if test="collegename != null" >
+        #{collegename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.eas.entity.College" >
+    update college
+    <set >
+      <if test="collegename != null" >
+        collegeName = #{collegename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where collegeID = #{collegeid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.eas.entity.College" >
+    update college
+    set collegeName = #{collegename,jdbcType=VARCHAR}
+    where collegeID = #{collegeid,jdbcType=INTEGER}
+  </update>
+</mapper>
