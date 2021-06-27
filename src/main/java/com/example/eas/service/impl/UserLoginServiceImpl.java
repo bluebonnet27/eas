@@ -21,4 +21,16 @@ public class UserLoginServiceImpl implements UserLoginService {
     public Userlogin selectUserLoginByUserName(String username) {
         return userloginMapper.selectByUserName(username);
     }
+
+    @Override
+    /**
+     * 返回的数字即为受影响的条数
+     */
+    public int updateUserLoginByUserIdAndPassword(int userid, String pwd) {
+        Userlogin userlogin = new Userlogin();
+        userlogin.setPassword(pwd);
+        userlogin.setUserid(userid);
+
+        return userloginMapper.updateByPrimaryKeySelective(userlogin);
+    }
 }

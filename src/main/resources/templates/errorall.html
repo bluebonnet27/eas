@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>发生了一个错误</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<nav class="blue darken-1">
+    <div class="nav-wrapper container">
+        <a id="navlogo" href="#!" class="brand-logo">错误</a>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col s3">
+
+        </div>
+        <div class="col s6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title" th:text="${title}"></span>
+                    <p th:text="${desc}"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col s3">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

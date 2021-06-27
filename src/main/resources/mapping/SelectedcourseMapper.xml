@@ -6,6 +6,41 @@
     <result column="studentID" property="studentid" jdbcType="INTEGER" />
     <result column="mark" property="mark" jdbcType="INTEGER" />
   </resultMap>
+
+  <sql id="Base_Column_List" >
+    courseID, studentID,mark
+  </sql>
+
+  <!-- 2021年6月26日20:27:20 查询学生是否选择某门课程 -->
+  <select id="selectSelectedCourseByStudentidAndCourseid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from selectedcourse
+    where studentID = #{studentid}
+    and
+    courseID = #{courseid}
+  </select>
+
+  <!-- 2021年6月27日00:01:41 查询某个学生已选的课程-->
+  <select id="selectSelectedCourseByStudentid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from selectedcourse
+    where studentID = #{studentid}
+    and
+    mark is null
+  </select>
+
+  <!-- 2021年6月27日00:35:54 查询某个学生已修的课程 -->
+  <select id="selectSelectedMarkedCourseByStudentid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from selectedcourse
+    where studentID = #{studentid}
+    and
+    mark is not null
+  </select>
+
   <insert id="insert" parameterType="com.example.eas.entity.Selectedcourse" >
     insert into selectedcourse (courseID, studentID, mark
       )

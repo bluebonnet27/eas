@@ -30,4 +30,12 @@ public class Selectedcourse {
     public void setMark(Integer mark) {
         this.mark = mark;
     }
+
+    public Selectedcourse(Integer courseid, Integer studentid) {
+        this.courseid = courseid;
+        this.studentid = studentid;
+    }
+
+    public Selectedcourse() {
+    }
 }

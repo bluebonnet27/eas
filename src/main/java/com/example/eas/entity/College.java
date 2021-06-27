@@ -20,4 +20,12 @@ public class College {
     public void setCollegename(String collegename) {
         this.collegename = collegename == null ? null : collegename.trim();
     }
+
+    @Override
+    public String toString() {
+        return "College{" +
+                "collegeid=" + collegeid +
+                ", collegename='" + collegename + '\'' +
+                '}';
+    }
 }
