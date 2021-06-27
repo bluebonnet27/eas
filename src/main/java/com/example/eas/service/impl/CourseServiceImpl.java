@@ -19,4 +19,9 @@ public class CourseServiceImpl implements CourseService {
     public ArrayList<Course> selectCoursesByPageService(Page<Course> page) {
         return courseMapper.selectCoursesByPage(page);
     }
+
+    @Override
+    public ArrayList<Course> selectCoursesByTeacherid(int teacherid) {
+        return courseMapper.selectCoursesByTeacherid(teacherid);
+    }
 }

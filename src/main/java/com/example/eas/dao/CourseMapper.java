@@ -19,6 +19,9 @@ public interface CourseMapper {
     //2021年6月26日11:22:12 分页查询所有课程
     ArrayList<Course> selectCoursesByPage(Page<Course> page);
 
+    //2021年6月27日12:04:21 根据老师id查询他教授的课程
+    ArrayList<Course> selectCoursesByTeacherid(int teacherid);
+
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);

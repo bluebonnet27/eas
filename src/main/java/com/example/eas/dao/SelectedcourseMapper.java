@@ -19,4 +19,10 @@ public interface SelectedcourseMapper {
 
     //2021年6月27日00:37:14 查询某个学生修的课程集合
     ArrayList<Selectedcourse> selectSelectedMarkedCourseByStudentid(int studentid);
+
+    //2021年6月27日14:00:44 查询某个课程号的集合
+    ArrayList<Selectedcourse> selectSelectedCoursesByCourseid(int courseid);
+
+    //2021年6月27日16:03:29 根据类来更新分数
+    int updateMarkByStudentidAndCourseId(Selectedcourse selectedcourse);
 }

@@ -30,6 +30,14 @@
     from course
   </select>
 
+  <!-- 2021年6月27日12:02:49 根据老师id查询所有他教授的课程 -->
+  <select id="selectCoursesByTeacherid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where teacherID = #{teacherid}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from course
     where courseID = #{courseid,jdbcType=INTEGER}

@@ -25,7 +25,7 @@
   <select id="selectSelectedCourseByStudentid" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from selectedcourse
+      from selectedcourse
     where studentID = #{studentid}
     and
     mark is null
@@ -39,6 +39,14 @@
     where studentID = #{studentid}
     and
     mark is not null
+  </select>
+
+  <!-- 2021年6月27日13:50:16 查询某个课程id对应的所有被选择的课程 -->
+  <select id="selectSelectedCoursesByCourseid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from selectedcourse
+    where courseID = #{courseid}
   </select>
 
   <insert id="insert" parameterType="com.example.eas.entity.Selectedcourse" >
@@ -72,4 +80,19 @@
       </if>
     </trim>
   </insert>
+
+  <!-- 2021年6月27日15:58:00 根据studentid，courseid更新学生的分数 -->
+  <update id="updateMarkByStudentidAndCourseId" parameterType="com.example.eas.entity.Selectedcourse">
+    update selectedcourse
+    <set>
+      <if test="studentmark != null" >
+        mark = #{mark,jdbcType=INTEGER}
+      </if>
+    </set>
+    where studentID = #{studentid,jdbcType=INTEGER}
+    and
+      courseID = #{courseid,jdbcType=INTEGER}
+  </update>
+
+  <!-- 2021年6月27日16:04:03 加一个selective的方法吧，比较安全，我感觉自己写的不稳 -->
 </mapper>

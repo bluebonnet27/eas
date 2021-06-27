@@ -2,10 +2,14 @@ package com.example.eas.service.impl;
 
 import com.example.eas.dao.CourseMapper;
 import com.example.eas.dao.SelectedcourseMapper;
+import com.example.eas.dao.StudentMapper;
 import com.example.eas.entity.Course;
 import com.example.eas.entity.Selectedcourse;
+import com.example.eas.entity.Student;
 import com.example.eas.entity.pro.CoursePro;
+import com.example.eas.entity.pro.StudentPro;
 import com.example.eas.service.SelectedcourseService;
+import org.apache.ibatis.annotations.Arg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,9 @@ public class SelectedcourseServiceImpl implements SelectedcourseService {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private StudentMapper studentMapper;
 
     @Override
     public Selectedcourse selectSelectedCourseByStudentidAndCourseid(int studentid, int courseid) {
@@ -77,5 +84,39 @@ public class SelectedcourseServiceImpl implements SelectedcourseService {
         }
 
         return coursePros;
+    }
+
+    @Override
+    public ArrayList<StudentPro> selectStudentProsByCourseid(int courseid) {
+        ArrayList<Selectedcourse> selectedcourses =
+                selectedcourseMapper.selectSelectedCoursesByCourseid(courseid);
+
+        ArrayList<StudentPro> studentPros = new ArrayList<>();
+
+        for(Selectedcourse selectedcourse:selectedcourses){
+            int studentid = selectedcourse.getStudentid();
+            Student student = studentMapper.selectByPrimaryKey(studentid);
+
+            StudentPro studentPro = new StudentPro();
+            studentPro.setUserid(studentid);
+            studentPro.setUsername(student.getUsername());
+            //表中不展示出来的参数就置空
+            if(selectedcourse.getMark()==null){
+                studentPro.setMark("无成绩");
+                studentPro.setMarked(false);
+            }else {
+                studentPro.setMark(selectedcourse.getMark().toString());
+                studentPro.setMarked(true);
+            }
+
+            studentPros.add(studentPro);
+        }
+
+        return studentPros;
+    }
+
+    @Override
+    public int updateStudentMarkBySelectedCourse(Selectedcourse selectedcourse) {
+        return selectedcourseMapper.updateMarkByStudentidAndCourseId(selectedcourse);
     }
 }

@@ -51,10 +51,14 @@ public class UserLoginController {
             }else {
                 System.out.println("LOGIN SUCCESS!");
                 loginResult.setResult(true);
-                loginResult.setResMsg("欢迎你，"+userlogin.getUsername());
-
+                if(userlogin.getRole()==0){
+                    loginResult.setResMsg("0");
+                }else if (userlogin.getRole()==1){
+                    loginResult.setResMsg("1");
+                }else {
+                    loginResult.setResMsg("2");
+                }
                 session.setAttribute("user",userlogin.getUsername());
-
                 return loginResult.toString();
             }
         }

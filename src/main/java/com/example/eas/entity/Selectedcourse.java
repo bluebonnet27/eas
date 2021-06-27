@@ -38,4 +38,10 @@ public class Selectedcourse {
 
     public Selectedcourse() {
     }
+
+    public Selectedcourse(Integer courseid, Integer studentid, Integer mark) {
+        this.courseid = courseid;
+        this.studentid = studentid;
+        this.mark = mark;
+    }
 }

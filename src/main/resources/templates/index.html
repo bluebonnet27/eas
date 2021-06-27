@@ -143,8 +143,15 @@
                     .post('http://localhost:8080/auserlogin/login',formDate)
                     .then(response =>{
                         if(response.data.result){
-                            //alert(response.data.resMsg);
-                            window.open('http://localhost:8080/astudent/studentallcourses');
+                            if(response.data.resMsg==="0"){
+                                alert("ADMIN!")
+                            }else if(response.data.resMsg==="1"){
+                                window.open('http://localhost:8080/ateacher/teachercourses');
+                            }else if(response.data.resMsg==="2"){
+                                window.open('http://localhost:8080/astudent/studentallcourses');
+                            }else {
+                                alert("发生了一个意外的错误导致登录失败！")
+                            }
                         }else{
                             alert(response.data.errMsg);
                         }

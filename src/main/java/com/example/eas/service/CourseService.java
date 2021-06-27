@@ -9,4 +9,7 @@ public interface CourseService {
 
     //分页查询所有课程
     ArrayList<Course> selectCoursesByPageService(Page<Course> page);
+
+    //根据老师id查教授的课程
+    ArrayList<Course> selectCoursesByTeacherid(int teacherid);
 }
