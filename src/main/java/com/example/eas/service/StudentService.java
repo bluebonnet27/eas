@@ -1,7 +1,14 @@
 package com.example.eas.service;
 
+import com.example.eas.entity.Page;
+import com.example.eas.entity.Student;
+import com.example.eas.entity.spec.StudentSpec;
+
+import java.util.ArrayList;
+
 //student service
 public interface StudentService {
 
-
+    //2021年6月27日22:59:35 查询所有学生
+    ArrayList<StudentSpec> selectAllStudentsByPage(Page<Student> page);
 }

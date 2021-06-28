@@ -85,7 +85,7 @@
   <update id="updateMarkByStudentidAndCourseId" parameterType="com.example.eas.entity.Selectedcourse">
     update selectedcourse
     <set>
-      <if test="studentmark != null" >
+      <if test="mark != null" >
         mark = #{mark,jdbcType=INTEGER}
       </if>
     </set>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>所有课程</title>
+  <style>
+    body{
+      background-image: url('https://ftp.bmp.ovh/imgs/2021/06/80c82ca5bf017874.png') ;
+      background-size:cover;
+    }
+  </style>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="/js/materialize.min.js"></script>
+
+  <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+  <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<nav class="blue darken-1" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="#" class="brand-logo" th:text="'你好！'+${user}">用户</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="#!"><i class="material-icons left">settings</i>修改信息</a></li>
+      <li><a href="#!"><i class="material-icons left">power_settings_new</i>注销</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col s3">
+      <div class="collection hoverable">
+        <a href="http://localhost:8080/admincontroller/ashowallcourses" class="collection-item active" >
+          <span class="badge" th:text="${enum}"></span>
+          <i class="tiny material-icons">list</i>    课程管理</a>
+        <a href="http://localhost:8080/admincontroller/ashowallstudents" class="collection-item">
+          <i class="tiny material-icons">recent_actors</i>    学生管理</a>
+        <a href="http://localhost:8080/admincontroller/ashowallteachers" class="collection-item">
+          <i class="tiny material-icons">contact_phone</i>    教师管理</a>
+        <a href="#!" class="collection-item">
+          <i class="tiny material-icons">replay</i>    账号密码重置</a>
+        <a href="#!" class="collection-item">
+          <i class="tiny material-icons">mode_edit</i>    修改密码</a>
+        <a href="#!" class="collection-item">
+          <i class="tiny material-icons">power_settings_new</i>    退出系统</a>
+      </div>
+    </div>
+    <div class="col s9">
+      <blockquote>
+        <h3 th:text="${pageTitle}"></h3>
+      </blockquote>
+      <div class="card hoverable">
+        <table class="highlight">
+          <thead>
+          <tr>
+            <th>课程号</th>
+            <th>课程名称</th>
+            <th>授课老师编号</th>
+            <th>上课时间</th>
+            <th>上课地点</th>
+            <th>周数</th>
+            <th>课程类型</th>
+            <th>学分</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="course,iterStat : ${courses}">
+            <td th:text="${course.courseid}"></td>
+            <td th:text="${course.coursename}"></td>
+            <td th:text="${course.teacherid}"></td>
+            <td th:text="${course.coursetime}"></td>
+            <td th:text="${course.classroom}"></td>
+            <td th:text="${course.courseweek}"></td>
+            <td th:text="${course.coursetype}"></td>
+            <td th:text="${course.score}"></td>
+            <td>
+              <div class="row">
+                <a class="btn waves-effect waves-light red darken-1">
+                  修改
+                </a>
+                <a class="btn waves-effect waves-light green darken-1">
+                  删除
+                </a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="chip" th:text="${'共：'+pages.totalRecord+'行'}">
+      </div>
+      <ul class="pagination">
+        <li  th:each="i : ${#numbers.sequence(1,pages.totalPage)}"
+             th:class="${pages.pageNo != i} ? '' : 'active'" >
+          <a th:href="@{http://localhost:8080/admincontroller/ashowallcourses(page=${i},limit=${pages.pageSize})}"
+             th:text="${i}" ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,7 +1,9 @@
 package com.example.eas.dao;
 
 import com.example.eas.entity.College;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface CollegeMapper {
     int deleteByPrimaryKey(Integer collegeid);
 

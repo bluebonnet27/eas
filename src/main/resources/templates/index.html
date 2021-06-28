@@ -144,7 +144,7 @@
                     .then(response =>{
                         if(response.data.result){
                             if(response.data.resMsg==="0"){
-                                alert("ADMIN!")
+                                window.open('http://localhost:8080/admincontroller/ashowallcourses');
                             }else if(response.data.resMsg==="1"){
                                 window.open('http://localhost:8080/ateacher/teachercourses');
                             }else if(response.data.resMsg==="2"){

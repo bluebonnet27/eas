@@ -25,6 +25,11 @@ public class TeacherController {
     @Autowired
     private SelectedcourseService selectedcourseService;
 
+    //傻逼的全局变量
+    private int xstudentid;
+
+    private int xcourseid;
+
     @RequestMapping("/teachercourses")
     public String showCoursesByTeacherId(Model model,
                                          HttpSession session){
@@ -59,6 +64,10 @@ public class TeacherController {
                                     String studentname,
                                     HttpSession session){
         int teacherid = Integer.parseInt(session.getAttribute("user").toString());
+
+        xstudentid = studentid;
+        xcourseid = courseid;
+
         model.addAttribute("user",teacherid);
         model.addAttribute("studentid",studentid);
         model.addAttribute("studentname",studentname);
@@ -70,12 +79,10 @@ public class TeacherController {
     }
 
     @RequestMapping("/markstudent")
-    public @ResponseBody String markStudent(int studentid,
-                                     int courseid,
-                                     int mark,
-                                     HttpSession session){
+    public @ResponseBody String markStudent(int mark,
+                                            HttpSession session){
         JsonResult updateResult = new JsonResult();
-        Selectedcourse selectedcourse = new Selectedcourse(studentid,courseid,mark);
+        Selectedcourse selectedcourse = new Selectedcourse(xcourseid,xstudentid,mark);
         int backValue = selectedcourseService.updateStudentMarkBySelectedCourse(selectedcourse);
 
         if(backValue==1){
@@ -86,6 +93,32 @@ public class TeacherController {
             updateResult.setResult(false);
             updateResult.setErrMsg("更新分数失败，原因来自数据库");
             return updateResult.toString();
+        }
+    }
+
+    @RequestMapping("/markstudentfm")
+    public String markStudentFm(String studentid,
+                                String courseid,
+                                String studentname,
+                                String studentmark,
+                                HttpSession session,
+                                Model model){
+        int sid = Integer.parseInt(studentid);
+        int cid = Integer.parseInt(courseid);
+        int sname = Integer.parseInt(studentname);
+        int mk = Integer.parseInt(studentmark);
+
+        Selectedcourse selectedcourse = new Selectedcourse(sid,cid,mk);
+        int backValue = selectedcourseService.updateStudentMarkBySelectedCourse(selectedcourse);
+
+        if(backValue==1){
+            model.addAttribute("title","SUCCESS");
+            model.addAttribute("desc","Update");
+            return "errorall";
+        }else {
+            model.addAttribute("title","FUCK");
+            model.addAttribute("desc","FUCK");
+            return "errorall";
         }
     }
 }

@@ -44,4 +44,13 @@ public class Selectedcourse {
         this.studentid = studentid;
         this.mark = mark;
     }
+
+    @Override
+    public String toString() {
+        return "Selectedcourse{" +
+                "courseid=" + courseid +
+                ", studentid=" + studentid +
+                ", mark=" + mark +
+                '}';
+    }
 }

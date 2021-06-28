@@ -20,6 +20,14 @@
     from teacher
     where userID = #{userid,jdbcType=INTEGER}
   </select>
+
+  <!-- 2021年6月28日09:59:23 分页查询所有教师信息 -->
+  <select id="selectTeachersByPage" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from teacher
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from teacher
     where userID = #{userid,jdbcType=INTEGER}
