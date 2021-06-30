@@ -76,10 +76,12 @@
                             <td th:text="${student.collegeidSpec}"></td>
                             <td>
                                 <div class="row">
-                                    <a class="btn waves-effect waves-light red darken-1">
+                                    <a class="btn waves-effect waves-light red darken-1"
+                                       th:href="@{http://localhost:8080/admincontroller/achangestudent(studentid=${student.userid})}">
                                         修改
                                     </a>
-                                    <a class="btn waves-effect waves-light green darken-1">
+                                    <a class="btn waves-effect waves-light green darken-1"
+                                       th:href="@{http://localhost:8080/admincontroller/delstudent(studentid=${student.userid})}">
                                         删除
                                     </a>
                                 </div>
@@ -98,6 +100,11 @@
                 </li>
             </ul>
         </div>
+    </div>
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large red" href="http://localhost:8080/admincontroller/aaddstudent">
+            <i class="large material-icons">add</i>
+        </a>
     </div>
 </div>
 </body>

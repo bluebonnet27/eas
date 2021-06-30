@@ -19,4 +19,7 @@ public interface UserloginMapper {
     int updateByPrimaryKeySelective(Userlogin record);
 
     int updateByPrimaryKey(Userlogin record);
+
+    //2021年6月28日23:03:29 根据name删除
+    int deleteByUserName(String username);
 }

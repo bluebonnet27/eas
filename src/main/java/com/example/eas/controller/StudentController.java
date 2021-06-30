@@ -153,4 +153,11 @@ public class StudentController {
             }
         }
     }
+
+    @RequestMapping("/logout")
+    public String studentLogout(Model model,
+                                HttpSession session){
+        session.removeAttribute("user");
+        return "index";
+    }
 }

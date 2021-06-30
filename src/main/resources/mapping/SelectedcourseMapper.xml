@@ -49,6 +49,12 @@
     where courseID = #{courseid}
   </select>
 
+  <!-- 2021年6月28日22:59:24 根据studentid删除课程 -->
+  <delete id="deleteByStudentId" parameterType="java.lang.Integer" >
+    delete from selectedcourse
+    where studentID = #{studentid}
+  </delete>
+
   <insert id="insert" parameterType="com.example.eas.entity.Selectedcourse" >
     insert into selectedcourse (courseID, studentID, mark
       )

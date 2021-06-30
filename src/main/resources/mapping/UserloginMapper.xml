@@ -29,6 +29,13 @@
     delete from userlogin
     where userID = #{userid,jdbcType=INTEGER}
   </delete>
+
+  <!-- 2021年6月28日23:02:09 根据name删除登录信息 -->
+  <delete id="deleteByUserName">
+    delete from userlogin
+    where userName = #{username}
+  </delete>
+
   <insert id="insert" parameterType="com.example.eas.entity.Userlogin" >
     insert into userlogin (userID, userName, password, 
       role)

@@ -33,4 +33,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         return userloginMapper.updateByPrimaryKeySelective(userlogin);
     }
+
+    @Override
+    public int delUserLogin(String username) {
+        return userloginMapper.deleteByUserName(username);
+    }
 }

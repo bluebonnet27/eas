@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>发生了一个错误</title>
+    <title>系统信息</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
 
@@ -17,7 +17,7 @@
 <body>
 <nav class="blue darken-1">
     <div class="nav-wrapper container">
-        <a id="navlogo" href="#!" class="brand-logo">错误</a>
+        <a id="navlogo" href="#!" class="brand-logo" th:text="${title}"></a>
     </div>
 </nav>
 <div class="container">

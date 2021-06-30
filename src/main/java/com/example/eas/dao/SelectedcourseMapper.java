@@ -25,4 +25,7 @@ public interface SelectedcourseMapper {
 
     //2021年6月27日16:03:29 根据类来更新分数
     int updateMarkByStudentidAndCourseId(Selectedcourse selectedcourse);
+
+    //2021年6月28日23:00:30 根据studentid删除选课数据
+    int deleteByStudentId(int studentid);
 }

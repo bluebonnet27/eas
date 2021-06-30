@@ -121,4 +121,9 @@ public class SelectedcourseServiceImpl implements SelectedcourseService {
         System.out.println(selectedcourse.toString());
         return selectedcourseMapper.updateMarkByStudentidAndCourseId(selectedcourse);
     }
+
+    @Override
+    public int delSelectedCourse(int studentid) {
+        return selectedcourseMapper.deleteByStudentId(studentid);
+    }
 }

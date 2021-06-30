@@ -38,7 +38,7 @@
       #{birthyear,jdbcType=DATE}, #{grade,jdbcType=DATE}, #{collegeid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.eas.entity.Student" >
+  <insert id="insertSelective" parameterType="com.example.eas.entity.Student">
     insert into student
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userid != null" >

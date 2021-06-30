@@ -26,4 +26,7 @@ public interface SelectedcourseService {
 
     //2021年6月27日16:12:47 根据类来更新分数
     int updateStudentMarkBySelectedCourse(Selectedcourse selectedcourse);
+
+    //2021年6月28日23:05:29 根据studentid删除选课信息
+    int delSelectedCourse(int studentid);
 }
