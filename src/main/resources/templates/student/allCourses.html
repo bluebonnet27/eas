@@ -8,6 +8,12 @@
             background-image: url('https://ftp.bmp.ovh/imgs/2021/06/80c82ca5bf017874.png') ;
             background-size:cover;
         }
+        #searchCourse{
+            margin-left: 20px;
+        }
+        #searchPic{
+            margin-top: 10px;
+        }
     </style>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="/css/materialize.min.css">
@@ -21,19 +27,20 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<nav class="light-blue lighten-1" role="navigation">
+<nav class="blue darken-1" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo" th:text="${user}">用户</a>
+        <a id="logo-container" href="#" class="brand-logo" th:text="'你好！'+${user}">用户</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">导航链接</a></li>
+            <li><a href="#!"><i class="material-icons left">settings</i>修改信息</a></li>
+            <li><a href="http://localhost:8080/astudent/logout" target="_self"><i class="material-icons left">power_settings_new</i>注销</a></li>
         </ul>
     </div>
 </nav>
     <div class="container">
         <div class="row">
             <div class="col s3">
-                <div class="collection">
-                    <a href="#!" class="collection-item active" >
+                <div class="collection hoverable">
+                    <a href="http://localhost:8080/astudent/studentallcourses" class="collection-item active" >
                         <span class="badge" th:text="${enum}">1</span><i class="tiny material-icons">list</i>   所有课程</a>
                     <a href="http://localhost:8080/astudent/studentselectedcourses" class="collection-item">
                         <i class="tiny material-icons">assignment</i>   已选课程</a>
@@ -41,14 +48,28 @@
                         <i class="tiny material-icons">assessment</i>   已修课程</a>
                     <a href="http://localhost:8080/astudent/studentchangepassword" class="collection-item">
                         <i class="tiny material-icons">mode_edit</i>   修改密码</a>
-                    <a href="http://localhost:8080/astudent/logout" class="collection-item">
+                    <a href="http://localhost:8080/astudent/logout" target="_self" class="collection-item">
                         <i class="tiny material-icons">power_settings_new</i>   退出系统</a>
+                </div>
+
+                <div class="search-wrapper card">
+                    <div class="row" id="searchLike">
+                        <div class="col s8">
+                            <input id="searchCourse" v-model="scourse"></i>
+                        </div>
+                        <div class="col s4">
+                            <button id="searchPic" class="btn blue darken-1 col s8" @click="searchCourse()"><i class="material-icons left">search</i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col s9">
-                <h3 th:text="${pageTitle}"></h3>
-                <table class="highlight">
-                    <thead>
+                <blockquote>
+                    <h3 th:text="${pageTitle}"></h3>
+                </blockquote>
+                <div class="card hoverable">
+                    <table class="highlight">
+                        <thead>
                         <tr>
                             <th>课程号</th>
                             <th>课程名称</th>
@@ -60,8 +81,8 @@
                             <th>学分</th>
                             <th>操作</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         <tr th:each="course,iterStat : ${courses}">
                             <td th:text="${course.courseid}"></td>
                             <td th:text="${course.coursename}"></td>
@@ -77,8 +98,9 @@
                                 </a>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
                 <div class="chip" th:text="${'共：'+pages.totalRecord+'行'}">
                 </div>
                 <ul class="pagination">
@@ -93,3 +115,16 @@
     </div>
 </body>
 </html>
+<script>
+    new Vue({
+        el:"#searchLike",
+        data:{
+            scourse:"输入课程名字..."
+        },
+        methods:{
+            searchCourse:function (){
+                window.open("http://localhost:8080/astudent/findmycourse?coursename="+this.scourse)
+            }
+        }
+    })
+</script>

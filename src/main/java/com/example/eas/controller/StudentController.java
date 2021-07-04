@@ -43,9 +43,22 @@ public class StudentController {
         model.addAttribute("courses",courses);
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("pageTitle","所有课程");
-        model.addAttribute("enum",courses.size());
+        model.addAttribute("enum",pages.getTotalRecord());
 
         return "student/allCourses";
+    }
+
+    @RequestMapping("/findmycourse")
+    public String showCoursesFromCourseByCourseNameLike(String coursename,
+                                                        Model model,
+                                                        HttpSession session){
+        ArrayList<Course> courses = courseService.selectCoursesByCourseNameLike(coursename);
+        model.addAttribute("courses",courses);
+        model.addAttribute("pageTitle","所有课程");
+        model.addAttribute("user",session.getAttribute("user"));
+        model.addAttribute("enum",courses.size());
+
+        return "student/allcourseslike";
     }
 
     @RequestMapping("/selectcourse")
@@ -61,7 +74,7 @@ public class StudentController {
             //System.out.println("选课错误 Student id "+selectedcourse.getStudentid());
             model.addAttribute("title","选课错误");
             model.addAttribute("userID",session.getAttribute("user"));
-            model.addAttribute("desc","你已经选择了这门课，你不能再选！");
+            model.addAttribute("desc",studentid + "，你已经选择了这门课，你不能再选！");
             return "errorall";
         }else {
             //System.out.println("选课Right Course id "+courseid);
@@ -74,8 +87,27 @@ public class StudentController {
                 model.addAttribute("desc","发生了一个未知的错误导致插入失败！");
                 return "errorall";
             }else {
-                return "redirect:/astudent/studentallcourses";
+                return "redirect:/astudent/studentselectedcourses";
             }
+        }
+    }
+
+    @RequestMapping("/delselectcourse")
+    public String delSelectedCourse(int courseid,
+                                    Model model,
+                                    HttpSession session){
+        int studentid = Integer.parseInt(session.getAttribute("user").toString());
+        int backValue = selectedcourseService.delSelectedCourseDouble(studentid,courseid);
+        if(backValue==1){
+            model.addAttribute("title","退课成功！");
+            model.addAttribute("userID",session.getAttribute("user"));
+            model.addAttribute("desc","你成功退掉了这门课！");
+            return "errorall";
+        }else {
+            model.addAttribute("title","退课失败");
+            model.addAttribute("userID",session.getAttribute("user"));
+            model.addAttribute("desc","你未能成功退掉这门课！");
+            return "errorall";
         }
     }
 
@@ -88,6 +120,7 @@ public class StudentController {
         model.addAttribute("courses",courses);
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("pageTitle","所有已选课程");
+        model.addAttribute("enum",courses.size());
 
         return "student/selectedCourses";
     }
@@ -107,6 +140,7 @@ public class StudentController {
         model.addAttribute("coursePros",coursePros);
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("pageTitle","所有已修课程");
+        model.addAttribute("enum",coursePros.size());
 
         return "student/markedCourses";
     }

@@ -29,4 +29,7 @@ public interface SelectedcourseService {
 
     //2021年6月28日23:05:29 根据studentid删除选课信息
     int delSelectedCourse(int studentid);
+
+    //2021年6月30日12:58:40 根据studentid和courseid删除选课数据
+    int delSelectedCourseDouble(int studentid,int courseid);
 }

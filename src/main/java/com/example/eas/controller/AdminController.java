@@ -35,6 +35,9 @@ public class AdminController {
     @Autowired
     private SelectedcourseService selectedcourseService;
 
+    @Autowired
+    private LoginrecordService loginrecordService;
+
     //用于表单填充的全局变量
     private int astudentid;
 
@@ -51,7 +54,7 @@ public class AdminController {
         model.addAttribute("courses",courses);
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("pageTitle","所有课程");
-        model.addAttribute("enum",courses.size());
+        model.addAttribute("enum",pages.getTotalRecord());
 
         return "admin/allcourses";
     }
@@ -69,7 +72,7 @@ public class AdminController {
         model.addAttribute("students",students);
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("pageTitle","所有学生");
-        model.addAttribute("enum",students.size());
+        model.addAttribute("enum",pages.getTotalRecord());
 
         return "admin/allstudents";
     }
@@ -171,9 +174,26 @@ public class AdminController {
         model.addAttribute("teachers",teacherSpecs);
         model.addAttribute("user",session.getAttribute("user"));
         model.addAttribute("pageTitle","所有学生");
-        model.addAttribute("enum",teacherSpecs.size());
+        model.addAttribute("enum",pages.getTotalRecord());
 
         return "admin/allteachers";
+    }
+
+    @RequestMapping("/ashowallloginrecords")
+    public String showAllLoginRecordsByPage(Model model,
+                                            @RequestParam(defaultValue = "1") Integer page,
+                                            @RequestParam(defaultValue = "5") Integer limit,
+                                            HttpSession session){
+        Page<Loginrecord> pages = new Page<>(page,limit);
+        ArrayList<Loginrecord> loginrecords = loginrecordService.selectAllLoginrecordsByPage(pages);
+
+        model.addAttribute("pages",pages);
+        model.addAttribute("loginrecords",loginrecords);
+        model.addAttribute("user",session.getAttribute("user"));
+        model.addAttribute("pageTitle","所有登录记录");
+        model.addAttribute("enum",pages.getTotalRecord());
+
+        return "admin/loginrecords";
     }
 
     @RequestMapping("/achangeuser")
@@ -259,5 +279,12 @@ public class AdminController {
         }
 
         return addResult.toString();
+    }
+
+    @RequestMapping("/logout")
+    public String adminLogout(Model model,
+                              HttpSession session){
+        session.removeAttribute("user");
+        return "index";
     }
 }

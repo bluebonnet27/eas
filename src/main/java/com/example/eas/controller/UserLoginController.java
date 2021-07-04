@@ -1,7 +1,9 @@
 package com.example.eas.controller;
 
 import com.example.eas.entity.JsonResult;
+import com.example.eas.entity.Loginrecord;
 import com.example.eas.entity.Userlogin;
+import com.example.eas.service.LoginrecordService;
 import com.example.eas.service.UserLoginService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/auserlogin")
@@ -22,6 +26,9 @@ public class UserLoginController {
 
     @Autowired
     private UserLoginService userLoginService;
+
+    @Autowired
+    private LoginrecordService loginrecordService;
 
     //登录跳转
 //    @RequestMapping(value = "/login", method = {RequestMethod.GET})
@@ -50,6 +57,20 @@ public class UserLoginController {
                 return loginResult.toString();
             }else {
                 System.out.println("LOGIN SUCCESS!");
+
+                //插入登录记录
+                Loginrecord loginrecord = new Loginrecord();
+
+                SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+                Date date = new Date(System.currentTimeMillis());
+                String time = formatter.format(date);
+
+                loginrecord.setTime(time);
+                loginrecord.setUsername(userlogin.getUsername());
+                loginrecord.setRole(userlogin.getRole());
+
+                int backValue = loginrecordService.addNewLoginrecord(loginrecord);
+
                 loginResult.setResult(true);
                 if(userlogin.getRole()==0){
                     loginResult.setResMsg("0");

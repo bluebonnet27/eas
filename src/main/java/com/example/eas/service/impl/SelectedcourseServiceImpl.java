@@ -126,4 +126,9 @@ public class SelectedcourseServiceImpl implements SelectedcourseService {
     public int delSelectedCourse(int studentid) {
         return selectedcourseMapper.deleteByStudentId(studentid);
     }
+
+    @Override
+    public int delSelectedCourseDouble(int studentid, int courseid) {
+        return selectedcourseMapper.deleteByStudentIdAndCourseId(studentid,courseid);
+    }
 }

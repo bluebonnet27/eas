@@ -55,6 +55,14 @@
     where studentID = #{studentid}
   </delete>
 
+  <!-- 2021年6月30日12:56:56 根据courseid和studentid删除选课数据 -->
+  <delete id="deleteByStudentIdAndCourseId">
+    delete from selectedcourse
+    where studentID = #{studentid}
+    and
+      courseID = #{courseid}
+  </delete>
+
   <insert id="insert" parameterType="com.example.eas.entity.Selectedcourse" >
     insert into selectedcourse (courseID, studentID, mark
       )

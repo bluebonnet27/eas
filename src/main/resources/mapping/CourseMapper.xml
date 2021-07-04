@@ -38,6 +38,14 @@
     where teacherID = #{teacherid}
   </select>
 
+  <!-- 2021年6月30日12:28:02 模糊查询课程信息 -->
+  <select id="selectCoursesByCourseNameLike" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from course
+    where courseName like "%"#{coursename}"%"
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from course
     where courseID = #{courseid,jdbcType=INTEGER}

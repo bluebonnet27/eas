@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>所有登录记录</title>
+  <style>
+    body{
+      background-image: url('https://ftp.bmp.ovh/imgs/2021/06/80c82ca5bf017874.png') ;
+      background-size:cover;
+    }
+  </style>
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="/js/materialize.min.js"></script>
+
+  <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+  <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<nav class="red darken-4" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="#" class="brand-logo" th:text="'你好！'+${user}">用户</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="http://localhost:8080/admincontroller/logout"><i class="material-icons left">power_settings_new</i>注销</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col s3">
+      <div class="collection hoverable">
+        <a href="http://localhost:8080/admincontroller/ashowallcourses" class="collection-item" >
+          <i class="tiny material-icons">list</i>    课程管理</a>
+        <a href="#!" class="collection-item active">
+          <span class="badge" th:text="${enum}"></span>
+          <i class="tiny material-icons">https</i>    查看登录记录</a>
+      </div>
+    </div>
+    <div class="col s9">
+      <blockquote>
+        <h3 th:text="${pageTitle}"></h3>
+      </blockquote>
+      <div class="chip">
+        警告！登录记录表不允许任何人增加，删除，修改！
+      </div>
+      <div class="card hoverable">
+        <table class="highlight">
+          <thead>
+            <tr>
+              <th>登录时间</th>
+              <th>登录名</th>
+              <th>角色</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="loginrecord,iterStat : ${loginrecords}">
+              <td th:text="${loginrecord.time}"></td>
+              <td th:text="${loginrecord.username}"></td>
+              <td th:text="${loginrecord.role}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="chip" th:text="${'共：'+pages.totalRecord+'行'}">
+      </div>
+      <ul class="pagination">
+        <li  th:each="i : ${#numbers.sequence(1,pages.totalPage)}"
+             th:class="${pages.pageNo != i} ? '' : 'active'" >
+          <a th:href="@{http://localhost:8080/admincontroller/ashowallloginrecords(page=${i},limit=${pages.pageSize})}"
+             th:text="${i}" ></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+</body>
+</html>

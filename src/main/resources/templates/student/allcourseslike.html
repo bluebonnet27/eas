@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>所有已修课程</title>
+  <meta charset="UTF-8">
+  <title>所有课程</title>
   <style>
     body{
       background-image: url('https://ftp.bmp.ovh/imgs/2021/06/80c82ca5bf017874.png') ;
@@ -34,12 +34,12 @@
   <div class="row">
     <div class="col s3">
       <div class="collection hoverable">
-        <a href="http://localhost:8080/astudent/studentallcourses" class="collection-item" >
-          <i class="tiny material-icons">list</i>   所有课程</a>
+        <a href="http://localhost:8080/astudent/studentallcourses" class="collection-item active" >
+          <span class="badge" th:text="${enum}">1</span>
+          <i class="tiny material-icons">search</i>   找到的课程</a>
         <a href="http://localhost:8080/astudent/studentselectedcourses" class="collection-item">
           <i class="tiny material-icons">assignment</i>   已选课程</a>
-        <a href="http://localhost:8080/astudent/studentmarkedcourses" class="collection-item active">
-          <span class="badge" th:text="${enum}">1</span>
+        <a href="http://localhost:8080/astudent/studentmarkedcourses" class="collection-item">
           <i class="tiny material-icons">assessment</i>   已修课程</a>
         <a href="http://localhost:8080/astudent/studentchangepassword" class="collection-item">
           <i class="tiny material-icons">mode_edit</i>   修改密码</a>
@@ -63,11 +63,11 @@
             <th>周数</th>
             <th>课程类型</th>
             <th>学分</th>
-            <th>得分</th>
+            <th>操作</th>
           </tr>
           </thead>
           <tbody>
-          <tr th:each="course,iterStat : ${coursePros}">
+          <tr th:each="course,iterStat : ${courses}">
             <td th:text="${course.courseid}"></td>
             <td th:text="${course.coursename}"></td>
             <td th:text="${course.teacherid}"></td>
@@ -76,7 +76,11 @@
             <td th:text="${course.courseweek}"></td>
             <td th:text="${course.coursetype}"></td>
             <td th:text="${course.score}"></td>
-            <td th:text="${course.mark}" class="materialize-red"></td>
+            <td>
+              <a class="btn waves-effect waves-light" th:href="@{http://localhost:8080/astudent/selectcourse(courseid=${course.courseid})}">
+                I want you
+              </a>
+            </td>
           </tr>
           </tbody>
         </table>

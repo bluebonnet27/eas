@@ -12,4 +12,7 @@ public interface CourseService {
 
     //根据老师id查教授的课程
     ArrayList<Course> selectCoursesByTeacherid(int teacherid);
+
+    //2021年6月30日13:12:59 根据课程名模糊查询所有课程
+    ArrayList<Course> selectCoursesByCourseNameLike(String coursename);
 }

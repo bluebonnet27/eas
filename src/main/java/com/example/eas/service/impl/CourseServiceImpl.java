@@ -24,4 +24,9 @@ public class CourseServiceImpl implements CourseService {
     public ArrayList<Course> selectCoursesByTeacherid(int teacherid) {
         return courseMapper.selectCoursesByTeacherid(teacherid);
     }
+
+    @Override
+    public ArrayList<Course> selectCoursesByCourseNameLike(String coursename) {
+        return courseMapper.selectCoursesByCourseNameLike(coursename);
+    }
 }

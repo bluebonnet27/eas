@@ -25,8 +25,10 @@
     <div class="nav-wrapper container">
         <a id="logo-container" href="#" class="brand-logo" th:text="'你好！'+${user}">用户</a>
         <ul class="right hide-on-med-and-down">
+            <li><a href="http://localhost:8080/admincontroller/ashowallloginrecords">
+                <i class="material-icons left">visibility</i>查看登录记录</a></li>
             <li><a href="#!"><i class="material-icons left">settings</i>修改信息</a></li>
-            <li><a href="#!"><i class="material-icons left">power_settings_new</i>注销</a></li>
+            <li><a href="http://localhost:8080/admincontroller/logout"><i class="material-icons left">power_settings_new</i>注销</a></li>
         </ul>
     </div>
 </nav>
@@ -44,7 +46,7 @@
                     <i class="tiny material-icons">replay</i>    账号密码重置</a>
                 <a href="#!" class="collection-item">
                     <i class="tiny material-icons">mode_edit</i>    修改密码</a>
-                <a href="#!" class="collection-item">
+                <a href="http://localhost:8080/admincontroller/logout" class="collection-item">
                     <i class="tiny material-icons">power_settings_new</i>    退出系统</a>
             </div>
         </div>

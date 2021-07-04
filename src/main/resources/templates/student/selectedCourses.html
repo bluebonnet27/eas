@@ -21,59 +21,70 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<nav class="light-blue lighten-1" role="navigation">
+<nav class="blue darken-1" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="#" class="brand-logo" th:text="${user}">用户</a>
+        <a id="logo-container" href="#" class="brand-logo" th:text="'你好！'+${user}">用户</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">导航链接</a></li>
+            <li><a href="#!"><i class="material-icons left">settings</i>修改信息</a></li>
+            <li><a href="http://localhost:8080/astudent/logout" target="_self"><i class="material-icons left">power_settings_new</i>注销</a></li>
         </ul>
     </div>
 </nav>
 <div class="container">
     <div class="row">
         <div class="col s3">
-            <div class="collection">
-                <a href="http://localhost:8080/astudent/studentallcourses" class="collection-item">所有课程</a>
-                <a href="#!" class="collection-item active">已选课程</a>
-                <a href="http://localhost:8080/astudent/studentmarkedcourses" class="collection-item">已修课程</a>
-                <a href="http://localhost:8080/astudent/studentchangepassword" class="collection-item">修改密码</a>
-                <a href="#!" class="collection-item">退出系统</a>
+            <div class="collection hoverable">
+                <a href="http://localhost:8080/astudent/studentallcourses" class="collection-item" >
+                    <i class="tiny material-icons">list</i>   所有课程</a>
+                <a href="http://localhost:8080/astudent/studentselectedcourses" class="collection-item active">
+                    <span class="badge" th:text="${enum}">1</span>
+                    <i class="tiny material-icons">assignment</i>   已选课程</a>
+                <a href="http://localhost:8080/astudent/studentmarkedcourses" class="collection-item">
+                    <i class="tiny material-icons">assessment</i>   已修课程</a>
+                <a href="http://localhost:8080/astudent/studentchangepassword" class="collection-item">
+                    <i class="tiny material-icons">mode_edit</i>   修改密码</a>
+                <a href="http://localhost:8080/astudent/logout" target="_self" class="collection-item">
+                    <i class="tiny material-icons">power_settings_new</i>   退出系统</a>
             </div>
         </div>
         <div class="col s9">
-            <h3 th:text="${pageTitle}"></h3>
-            <table class="highlight">
-                <thead>
-                <tr>
-                    <th>课程号</th>
-                    <th>课程名称</th>
-                    <th>授课老师编号</th>
-                    <th>上课时间</th>
-                    <th>上课地点</th>
-                    <th>周数</th>
-                    <th>课程类型</th>
-                    <th>学分</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="course,iterStat : ${courses}">
-                    <td th:text="${course.courseid}"></td>
-                    <td th:text="${course.coursename}"></td>
-                    <td th:text="${course.teacherid}"></td>
-                    <td th:text="${course.coursetime}"></td>
-                    <td th:text="${course.classroom}"></td>
-                    <td th:text="${course.courseweek}"></td>
-                    <td th:text="${course.coursetype}"></td>
-                    <td th:text="${course.score}"></td>
-                    <td>
-                        <a class="btn waves-effect" th:href="@{http://localhost:8080/astudent/selectcourse(courseid=${course.courseid})}">
-                            不想上了
-                        </a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <blockquote>
+                <h3 th:text="${pageTitle}"></h3>
+            </blockquote>
+            <div class="card hoverable">
+                <table class="highlight">
+                    <thead>
+                    <tr>
+                        <th>课程号</th>
+                        <th>课程名称</th>
+                        <th>授课老师编号</th>
+                        <th>上课时间</th>
+                        <th>上课地点</th>
+                        <th>周数</th>
+                        <th>课程类型</th>
+                        <th>学分</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="course,iterStat : ${courses}">
+                        <td th:text="${course.courseid}"></td>
+                        <td th:text="${course.coursename}"></td>
+                        <td th:text="${course.teacherid}"></td>
+                        <td th:text="${course.coursetime}"></td>
+                        <td th:text="${course.classroom}"></td>
+                        <td th:text="${course.courseweek}"></td>
+                        <td th:text="${course.coursetype}"></td>
+                        <td th:text="${course.score}"></td>
+                        <td>
+                            <a class="btn waves-effect" th:href="@{http://localhost:8080/astudent/delselectcourse(courseid=${course.courseid})}">
+                                不想上了
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

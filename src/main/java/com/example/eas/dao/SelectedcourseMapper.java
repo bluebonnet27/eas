@@ -28,4 +28,7 @@ public interface SelectedcourseMapper {
 
     //2021年6月28日23:00:30 根据studentid删除选课数据
     int deleteByStudentId(int studentid);
+
+    //2021年6月30日12:57:57 根据studentid和courseid删除选课数据
+    int deleteByStudentIdAndCourseId(int studentid,int courseid);
 }
